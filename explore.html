@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="explore.css">
+</head>
+<body>
+
+<div class="container">
+  <i class="back-icon fas fa-arrow-left"></i>
+  <h1>Explore</h1>
+
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Search by topic, interest, or skills">
+    <i class="search-icon fas fa-search"></i>
+  </div>
+
+  <h2>Top searched category</h2>
+  <div class="category-buttons">
+    <button class="category-button">Business and Entrepreneurship</button>
+    <button class="category-button">Technology</button>
+  </div>
+  <div class="category-buttons">
+    <button class="category-button">Talent show</button>
+    <button class="category-button">Languages and Literature</button>
+  </div>
+
+  <h2>Popular Events</h2>
+  <div class="events" id="events-container">
+    <!-- event list will be rendered here -->
+  </div>
+
+  <script>
+    // Define events data array
+    const eventsData = [
+      {
+        title: "AI and Machine Learning Workshop",
+        category: "Technology",
+        location: "Indira College"
+      },
+      {
+        title: "Cloud Computing Workshop",
+        category: "Technology",
+        location: "Indira College"
+      },
+      {
+        title: "Cybersecurity Conference",
+        category: "Technology",
+        location: "Indira College"
+      },
+      {
+        title: "Startup Pitch Competition",
+        category: "Business and Entrepreneurship",
+        location: "Indira College"
+      },
+      {
+        title: "Women in Tech Summit",
+        category: "Technology",
+        location: "Indira College"
+      },
+      {
+        title: "Game Development Bootcamp",
+        category: "Technology",
+        location: "Indira College"
+      },
+      {
+        title: "Web Summit",
+        category: "Technology",
+        location: "Lisbon, Portugal"
+      },
+      {
+        title: "Google I/O",
+        category: "Technology",
+        location: "Mountain View, CA"
+      },
+      {
+        title: "CES (Consumer Electronics Show)",
+        category: "Technology",
+        location: "Las Vegas, NV"
+      },
+      {
+        title: "TED Conference",
+        category: "Business and Entrepreneurship",
+        location: "Vancouver, BC"
+      },
+      {
+        title: "World Economic Forum",
+        category: "Business and Entrepreneurship",
+        location: "Davos, Switzerland"
+      },
+      {
+        title: "Startup Grind",
+        category: "Business and Entrepreneurship",
+        location: "San Francisco, CA"
+      },
+      {
+        title: "America's Got Talent",
+        category: "Talent show",
+        location: "Los Angeles, CA"
+      },
+      {
+        title: "The Voice",
+        category: "Talent show",
+        location: "Universal City, CA"
+      },
+      {
+        title: "Tamil",
+        category: "Languages and Literature",
+        location: "Hay-on-Wye, UK"
+      }
+    ];
+
+    // Function to filter events by search query
+    function filterEvents(searchQuery) {
+      const filteredEvents = eventsData.filter(event => {
+        const title = event.title.toLowerCase();
+        const category = event.category.toLowerCase();
+        const location = event.location.toLowerCase();
+        const searchQueryLower = searchQuery.toLowerCase();
+        return title.includes(searchQueryLower) || category.includes(searchQueryLower) || location.includes(searchQueryLower);
+      });
+      return filteredEvents;
+    }
+
+    // Function to render events
+    function renderEvents(events) {
+      const eventsContainer = document.getElementById("events-container");
+      eventsContainer.innerHTML = "";
+      events.forEach(event => {
+        const eventHTML = `
+           <div class="event">
+            <img src="https://picsum.photos/50" alt="${event.title}" class="event-image">
+            <div class="event-info">
+              <h3 class="event-title">${event.title}</h3>
+              <p class="event-details">${event.category} | +20 | ${event.location}</p>
+            </div>
+          </div>
+        `;
+        eventsContainer.innerHTML += eventHTML;
+      });
+    }
+
+    
+
+    // Add event listener to search input field
+       // Add event listener to search input field
+    const searchInput = document.getElementById("search-input");
+    searchInput.addEventListener('input', () => {
+      const searchQuery = searchInput.value.trim();
+      const filteredEvents = filterEvents(searchQuery);
+      renderEvents(filteredEvents);
+    });
+
+    // Initial render of all events
+    renderEvents(eventsData);
+
+
+    // ...
+
+// Function to filter events by category
+function filterByCategory(category) {
+  const filteredEvents = eventsData.filter(event => event.category === category);
+  return filteredEvents;
+}
+
+// Add event listener to category buttons
+const categoryButtons = document.querySelectorAll('.category-button');
+categoryButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const category = button.textContent;
+    const filteredEvents = filterByCategory(category);
+    renderEvents(filteredEvents);
+  });
+});
+
+
+
+// ...
+  </script>
+</div>
+
+</body>
+</html>
